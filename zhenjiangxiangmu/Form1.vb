@@ -172,11 +172,11 @@
         ''高宽比
         If myworksheet.Range("E18").Value Like "*R小*" Then
             GKB = "A"
-        ElseIf myworksheet.Range("E18").Value Like "*R1*" Then
+        ElseIf myworksheet.Range("E18").Value Like "*R1~*" Then
             GKB = "B"
         ElseIf myworksheet.Range("E18").Value Like "*R1.5*" Then
             GKB = "C"
-        ElseIf myworksheet.Range("E18").Value Like "*R2*" Then
+        ElseIf myworksheet.Range("E18").Value Like "*R2~*" Then
             GKB = "D"
         ElseIf myworksheet.Range("E18").Value Like "*R大*" Then
             GKB = "E"
