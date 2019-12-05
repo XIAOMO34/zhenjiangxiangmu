@@ -97,8 +97,12 @@
         myword.Selection.Copy()
         myworksheet.Activate()
         myworksheet.Range("A1").Select()
-
-        myexcel.ActiveSheet.PASTE
+        Do While myworksheet.Range("A1").Value Is Nothing
+            Try
+                myexcel.ActiveSheet.PASTE
+            Catch ex As Exception
+            End Try
+        Loop
         ''年代
         KCH = myworksheet.Range("C1").Value
         If myworksheet.Range("E4").Value Like "*R1978*" Then
@@ -313,13 +317,7 @@
         Else
             KZDD = "A"
         End If
-        If myworksheet.Range("D8").Value Like "*R砌体*" Then
-            JGLX = "QT"
-        ElseIf myworksheet.Range("D8").Value Like "*R内框架*" Then
-            JGLX = "KJ"
-        Else
-            JGLX = "ZJF"
-        End If
+        JGLX = "ZJF"
         If myworksheet.Range("G9").Value Like "*R否*" Then
             PJQT = "D"
         Else
