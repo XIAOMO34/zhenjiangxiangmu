@@ -67,7 +67,6 @@
                         shuchu()
                     End If
                 Next
-
                 For Each mDir In mDirInfo.GetDirectories
                     GetAllFiles(mDir.FullName)
                 Next
@@ -91,14 +90,14 @@
 
     End Sub
 
-    '''''''''''''''''''''''''''''''''''''''''''''''''''''
-
+    ''''''''''''''''''''''''''''''''''''''''''''''''''''
     Function table2_4()
         myworkbook = myword.Documents.Open(mFileInfo.FullName)
         myworkbook.Tables(1).Select()
         myword.Selection.Copy()
         myworksheet.Activate()
         myworksheet.Range("A1").Select()
+
         myexcel.ActiveSheet.PASTE
         ''年代
         KCH = myworksheet.Range("C1").Value
@@ -133,12 +132,48 @@
         Else
             JGLX = "OTHER"
         End If
-        '''混凝土墙
-        'If myworksheet.Range("E9").Value Like "*R是*" Then
-        '    JGLX = "QT"
-        'Else
-        '    JGLX = "KJ"
-        'End If
+        ''混凝土墙
+        If myworksheet.Range("E9").Value Like "*R是*" Then
+            PJQT = "QT"
+        ElseIf myworksheet.Range("E9").Value Like "*R否*" Then
+            PJQT = "KJ"
+        End If
+        ''高宽比
+        If myworksheet.Range("E10").Value Like "*R小*" Then
+            GKB = "A"
+        ElseIf myworksheet.Range("E10").Value Like "*R1~*" Then
+            GKB = "B"
+        ElseIf myworksheet.Range("E10").Value Like "*R2~*" Then
+            GKB = "C"
+        ElseIf myworksheet.Range("E10").Value Like "*R4~*" Then
+            GKB = "D"
+        ElseIf myworksheet.Range("E10").Value Like "*R大*" Then
+            GKB = "E"
+        End If
+        ''多塔
+        If myworksheet.Range("E11").Value Like "*R有*" Then
+            GZZ = "B"
+        Else
+            GZZ = "E"
+        End If
+        ''平面形状
+        If myworksheet.Range("E12").Value Like "*R矩形*" Then
+            GZZ = "A"
+        ElseIf myworksheet.Range("E12").Value Like "*R正*" Then
+            GZZ = "B"
+        ElseIf myworksheet.Range("E12").Value Like "*R十字*" Then
+            GZZ = "C"
+        ElseIf myworksheet.Range("E12").Value Like "*RL形*" Then
+            GZZ = "D"
+        ElseIf myworksheet.Range("E12").Value Like "*RU*" Then
+            GZZ = "E"
+        End If
+        ''大底盘
+        If myworksheet.Range("E13").Value Like "*R不" Then
+            CZQH = "B"
+        ElseIf myworksheet.Range("E13").Value Like "*R存*" Then
+            CZQH = "D"
+        End If
         ''配筋砌体
         If myworksheet.Range("E14").Value Like "*R否*" Then
             PJQT = "D"
@@ -148,7 +183,7 @@
         ''底层拆改
         If myworksheet.Range("E15").Value Like "*R否*" Then
             DCCG = "B"
-        Else
+        ElseIf myworksheet.Range("E15").Value Like "*R是*" Then
             DCCG = "A"
         End If
         ''加层改造
@@ -184,7 +219,7 @@
         ''构造柱
         If myworksheet.Range("E19").Value Like "*R有*" Then
             GZZ = "B"
-        Else
+        ElseIf myworksheet.Range("E19").Value Like "*R无*" Then
             GZZ = "E"
         End If
         ''高度
@@ -283,7 +318,7 @@
         ElseIf myworksheet.Range("D8").Value Like "*R内框架*" Then
             JGLX = "KJ"
         Else
-            JGLX = "OTHER"
+            JGLX = "ZJF"
         End If
         If myworksheet.Range("G9").Value Like "*R否*" Then
             PJQT = "D"
@@ -395,6 +430,24 @@
         myworksheet.Activate()
         myworksheet.Cells.Select()
         myexcel.Selection.delete
+        KCH = ""
+        JGLX = ""
+        JZND = ""
+        KZDD = ""
+        PJQT = ""
+        DCCG = ""
+        JCGZ = ""
+        ZDCG = ""
+        GKB = ""
+        GZZ = ""
+        GD = ""
+        CS = ""
+        PMXZ = ""
+        CZQH = ""
+        QL = ""
+        LBxs = ""
+        sfczcc = ""
+        cpjg = ""
         myworkbook.Close()
     End Function
 End Class
